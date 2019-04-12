@@ -41,6 +41,7 @@ class TeacherProfile(models.Model):
     specialty = models.CharField('专业', max_length=50)
 
     position = models.ForeignKey(Position, verbose_name='目前身份')
+    teach = models.CharField('任教学科', null=True, blank=True, max_length=50)
     teach_age = models.IntegerField('教龄', null=True, blank=True)
 
     # 省份

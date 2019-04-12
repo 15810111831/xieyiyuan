@@ -1,3 +1,4 @@
+from .user import *
 from .district import *
 from .position import *
 from .price import *

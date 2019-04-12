@@ -9,7 +9,7 @@ from users.api.views import (
 
 router = routers.SimpleRouter()
 
-router.register(r'users', UserViewSet, base_name='user')
+router.register(r'user', UserViewSet, base_name='user')
 router.register(r'district', DistrictViewSet, base_name='district')
 router.register(r'position', PositionViewSet, base_name='position')
 router.register(r'price', PriceViewSet, base_name='price')

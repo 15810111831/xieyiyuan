@@ -36,3 +36,43 @@ class User(AbstractUser):
         (2, '学生')
     )
     type = models.SmallIntegerField('类别', choices=type_choices, null=True, blank=True)
+
+    def __unicode__(self):
+        return self.username
+
+    def get_teacher_name(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].name if teacherprofile else ''
+
+    def get_teacher_gender(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].get_gender_display() if teacherprofile else ''
+
+    def get_teacher_position(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].position.name if teacherprofile else ''
+
+    def get_teacher_subject(self):
+        teacherprofile = self.teacherprofile_set.all()
+        if teacherprofile and teacherprofile[0].subjects.all():
+            return teacherprofile[0].subjects.all()
+        else:
+            return ''
+
+    def get_teacher_specialty(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].specialty if teacherprofile else ''
+
+    def get_teacher_school(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].school.name if teacherprofile else ''
+
+    def get_create_datetime(self):
+        return self.create_datetime.strftime('%Y-%m-%d')
+
+    def get_teacher_pass_datetime(self):
+        teacherprofile = self.teacherprofile_set.all()
+        if teacherprofile and teacherprofile[0].status == 3:
+            return teacherprofile[0].pass_datetime.strftime('%Y-%m-%d')
+        else:
+            return ''
