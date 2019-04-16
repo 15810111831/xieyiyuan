@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'common',
     'users',
     'tutor',
+    'post',
 ]
 
 MIDDLEWARE = [

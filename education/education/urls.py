@@ -27,4 +27,5 @@ urlpatterns = [
     url(r'^rest-auth/api/', include('rest_auth.urls')),
     url(r'users/api/', include('users.api.urls')),
     url(r'tutor/api/', include('tutor.api.urls')),
+    url(r'post/api/', include('post.api.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
