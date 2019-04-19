@@ -15,8 +15,12 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     filter_fields = (
         'type',
+        'teacherprofile__gender',
         'teacherprofile__education',
-        'teacherprofile__status'
+        'teacherprofile__status',
+        'teacherprofile__subjects',
+        'teacherprofile__school',
+        'teacherprofile__position',
     )
     search_fields = ('teacherprofile__position__name', 'teacherprofile__subjects__name',
                      'teacherprofile__life_area__name', 'teacherprofile__school__name')
@@ -70,6 +74,20 @@ class UserViewSet(viewsets.ModelViewSet):
         headers = self.get_success_headers(serializer.data)
         return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
 
+    def perform_update(self, serializer):
+        data = self.request.data
+        instance = serializer.save()
+        if instance.type == 1:
+            if data.get('info', ''):
+                instance.info = data['info']
+            if data.get('description', ''):
+                instance.description = data['description']
+            if data.get('cert', ''):
+                instance.cert = data['cert']
+            if data.get('resume', ''):
+                instance.resume = data['resume']
+            instance.save()
+
     @action(methods=['get'], detail=False)
     def get_user_info(self, request):
         key = request.query_params.get('key', '')
@@ -81,6 +99,6 @@ class UserViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
     def get_permissions(self):
-        if self.action == 'create':
+        if self.action == 'create' or self.action == 'list':
             return []
         return super(UserViewSet, self).get_permissions()

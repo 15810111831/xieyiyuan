@@ -4,11 +4,13 @@ from __future__ import unicode_literals
 from django.db import models
 from users.models import User, District
 from .grade import Grade
+from datetime import datetime
 
 
 class Engage(models.Model):
     '''请家教 -- 下单'''
 
+    code = models.CharField('订单号', max_length=14, unique=True)
     user = models.ForeignKey(User, verbose_name='用户')
     name = models.CharField('姓名', max_length=30)
     mobile = models.CharField('手机号', max_length=11)
@@ -34,3 +36,11 @@ class Engage(models.Model):
     class Meta:
         verbose_name = '请家教-下单'
         verbose_name_plural = '请家教-下单'
+
+    def get_create_datetime(self):
+        return self.create_datetime.strftime("%Y-%m-%d")
+
+    def save(self, *args, **kwargs):
+        if self._state.adding:
+            self.code = datetime.now().strftime('%Y%m%d%H%M%S')
+        super(Engage, self).save(*args, **kwargs)

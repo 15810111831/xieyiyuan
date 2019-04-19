@@ -76,3 +76,28 @@ class User(AbstractUser):
             return teacherprofile[0].pass_datetime.strftime('%Y-%m-%d')
         else:
             return ''
+
+    def get_teach_area(self):
+        teacherprofile = self.teacherprofile_set.all()
+        area_list = []
+        if teacherprofile and teacherprofile[0].teach_area.all():
+            area_list = teacherprofile.values_list('teach_area__name', flat=True)
+        return ";".join(area_list)
+
+    def get_teach_way(self):
+        teacherprofile = self.teacherprofile_set.all()
+        way_list = []
+        if teacherprofile and teacherprofile[0].way.all():
+            way_list = teacherprofile.values_list('way__name', flat=True)
+        return ";".join(way_list)
+
+    def get_price(self):
+        teacherprofile = self.teacherprofile_set.all()
+        price_list = []
+        if teacherprofile and teacherprofile[0].price.all():
+            price_list = teacherprofile.values_list('price__name', flat=True)
+        return ";".join(price_list)
+
+    def get_education(self):
+        teacherprofile = self.teacherprofile_set.all()
+        return teacherprofile[0].get_education_display() if teacherprofile else ''

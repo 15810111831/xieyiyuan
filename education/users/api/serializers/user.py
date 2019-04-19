@@ -14,6 +14,10 @@ class UserSerializer(serializers.ModelSerializer):
     teacher_school = serializers.CharField(source='get_teacher_school', read_only=True)
     create_datetime_str = serializers.CharField(source='get_create_datetime', read_only=True)
     teacher_pass_datetime = serializers.CharField(source='get_teacher_pass_datetime', read_only=True)
+    teach_area_name = serializers.CharField(source="get_teach_area", read_only=True)
+    teach_way_name = serializers.CharField(source="get_teach_way", read_only=True)
+    teach_price = serializers.CharField(source="get_price", read_only=True)
+    teach_education = serializers.CharField(source="get_education", read_only=True)
 
     class Meta:
         model = User
@@ -34,7 +38,11 @@ class UserSerializer(serializers.ModelSerializer):
             'teacher_position_name',
             'teacher_subject_name',
             'teacher_specialty',
-            'teacher_school'
+            'teacher_school',
+            'teach_area_name',
+            'teach_way_name',
+            'teach_price',
+            'teach_education',
         )
         read_only_fields = ('get_type_display', 'create_datetime', 'update_datetime')
         extra_kwargs = {'password': {'write_only': True}}
