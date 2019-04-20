@@ -4,7 +4,7 @@ from django.contrib import admin
 from users.models import User, TeacherProfile, StudentProfile
 
 
-class TeacherProfileInlineAdmin(admin.TabularInline):
+class TeacherProfileInlineAdmin(admin.StackedInline):
     model = TeacherProfile
     fieldsets = (
         (None, {
@@ -12,13 +12,20 @@ class TeacherProfileInlineAdmin(admin.TabularInline):
         }),
         (None, {
             'fields': ('id_code', 'education', 'school', 'specialty', 'position')
-        })
+        }),
+        (
+            None, {
+                'fields': ('id_code_pic',)
+            }
+        )
     )
+    extra = 0
 
 
 class StudentProfileInlineAdmin(admin.TabularInline):
     model = StudentProfile
     fields = ('name', 'gender', 'mobile', 'address', 'postal_code')
+    extra = 0
 
 
 class UserAdmin(admin.ModelAdmin):

@@ -6,7 +6,7 @@ from post.models import ArticleType
 
 
 class ArticleTypeAdmin(admin.ModelAdmin):
-    fields = ('id', 'name')
+    fields = ('name', )
 
 
 admin.site.register(ArticleType, ArticleTypeAdmin)

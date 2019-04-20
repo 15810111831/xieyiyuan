@@ -25,6 +25,7 @@ urlpatterns = [
     url(r'^api/docs/', get_swagger_view(title='在线选课系统接口文档')),
     url(r'^auth/api/', include('rest_framework.urls')),
     url(r'^rest-auth/api/', include('rest_auth.urls')),
+    url(r'^ueditor/', include('DjangoUeditor.urls')),
     url(r'users/api/', include('users.api.urls')),
     url(r'tutor/api/', include('tutor.api.urls')),
     url(r'post/api/', include('post.api.urls')),

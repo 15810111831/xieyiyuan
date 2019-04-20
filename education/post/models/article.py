@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from django.db import models
 from users.models import User
 from post.models import ArticleType
+from DjangoUeditor.models import UEditorField
 
 
 class Article(models.Model):
@@ -12,7 +13,8 @@ class Article(models.Model):
     title = models.CharField("标题", max_length=100)
     user = models.ForeignKey(User, verbose_name="创建人")
     type = models.ForeignKey(ArticleType, verbose_name='文章类别')
-    content = models.TextField("内容")
+    content = UEditorField('内容', height=300, width=1000, default='', blank=True,
+                           imagePath="images", toolbars='full', filePath='files')
     click_num = models.IntegerField('点击率', default=0)
 
     create_datetime = models.DateTimeField('创建时间', auto_now_add=True)

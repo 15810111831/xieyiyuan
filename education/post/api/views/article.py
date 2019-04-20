@@ -19,8 +19,8 @@ class ArticleViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.Li
 
     def perform_create(self, serializer):
         data = self.request.data
-        serializer.save(type_id=data['type'], user=data['user'])
+        serializer.save(type_id=data['type'], user_id=data['user'])
 
     def perform_update(self, serializer):
         data = self.request.data
-        serializer.save(type_id=data['type'], user=data['user'])
+        serializer.save(type_id=data['type'], user_id=data['user'])

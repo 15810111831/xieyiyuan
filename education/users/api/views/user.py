@@ -98,6 +98,18 @@ class UserViewSet(viewsets.ModelViewSet):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
+    @action(methods=['post'], detail=True)
+    def upload_id_pic(self, request, pk):
+        instance = self.get_object()
+        file = request.FILES.get('id_code_pic', None)
+        print file
+        if not file:
+            return Response({'detail': '请传入图片'}, status=status.HTTP_400_BAD_REQUEST)
+        teacherprofile = instance.teacherprofile_set.first()
+        print teacherprofile
+        teacherprofile.id_code_pic.save('id_code_pic', file)
+        return Response({'detail': '上传成功'}, status=status.HTTP_200_OK)
+
     def get_permissions(self):
         if self.action == 'create' or self.action == 'list':
             return []

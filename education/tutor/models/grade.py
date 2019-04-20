@@ -13,5 +13,5 @@ class Grade(models.Model):
         verbose_name = '年级',
         verbose_name_plural = '年级'
 
-    def __unicode__(self):
-        return self.name
+    def __str__(self):
+        return self.name.encode("utf-8")

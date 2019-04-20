@@ -14,4 +14,4 @@ class ArticleType(models.Model):
         verbose_name_plural = '文章类别'
 
     def __str__(self):
-        return self.name
+        return self.name.encode("utf-8")
