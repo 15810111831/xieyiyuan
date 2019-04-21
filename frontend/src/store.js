@@ -13,7 +13,7 @@ export default new Vuex.Store({
     errHandler(state, err) {
       var msg = ''
       if (err.status === 401 || err.status === 403) {
-        msg = '该用户暂无权限'
+        msg = '请先登陆'
       } else if (err.status == 500) {
         msg = '服务器错误，请稍后再试'
       } else {

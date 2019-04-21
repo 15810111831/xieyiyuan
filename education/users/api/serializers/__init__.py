@@ -5,3 +5,4 @@ from .school import SchoolSerializer
 from .price import PriceSerializer
 from .subject import SubjectSerializer
 from .way import WaySerializer
+from .teacher_profile import TeacherProfileSerializer

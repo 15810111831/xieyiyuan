@@ -9,7 +9,7 @@ class Position(models.Model):
 
     name = models.CharField('身份', max_length=50)
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     class Meta:

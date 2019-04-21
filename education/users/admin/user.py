@@ -15,7 +15,7 @@ class TeacherProfileInlineAdmin(admin.StackedInline):
         }),
         (
             None, {
-                'fields': ('id_code_pic',)
+                'fields': ('id_code_pic', 'head_img')
             }
         )
     )

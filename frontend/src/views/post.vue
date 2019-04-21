@@ -13,7 +13,7 @@
       <el-form-item label="内容" prop="content">
         <quill-editor ref="contentEditor" v-model="form.content" :options="options"></quill-editor>
       </el-form-item>
-      <el-button type="primary" @click="create">发表文章</el-button>
+      <el-button type="primary" @click="create(form)">发表文章</el-button>
     </el-form>
   </div>
 </template>
@@ -61,7 +61,7 @@ export default {
         this.typeOptions = res.data.results;
       });
     },
-    create() {
+    create(formName) {
       if (this.created) return false;
       this.$refs[formName].validate(valid => {
         if (valid) {
@@ -72,6 +72,10 @@ export default {
               this.$message({
                 type: "success",
                 message: "发表成功"
+              });
+              this.$router.push({
+                path: "/",
+                name: "home"
               });
             })
             .catch(err => {

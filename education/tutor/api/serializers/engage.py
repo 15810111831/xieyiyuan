@@ -30,5 +30,5 @@ class EngageSerializer(serializers.ModelSerializer):
             'get_teacher_gender_display',
             'create_datetime_str'
         )
-        read_only_fields = ('get_gender_display', 'get_teacher_gender_display')
+        read_only_fields = ('get_gender_display', 'get_teacher_gender_display', 'code')
         depth = 1

@@ -1,7 +1,7 @@
 <template>
   <div id="teacher">
     <engage-search></engage-search>
-    <list :tableData="tableData" :tableProps="tableProps"></list>
+    <list :tableData="tableData" :tableProps="tableProps" :total="total" :route="route"></list>
   </div>
 </template>
 <script>
@@ -28,7 +28,7 @@ export default {
           label: "学员性别"
         },
         {
-          value: "grade",
+          value: "grade.name",
           label: "学员年级"
         },
         {
@@ -47,7 +47,12 @@ export default {
           value: "create_datetime_str",
           label: "发布详情"
         }
-      ]
+      ],
+      total: null,
+      route: {
+        path: "/engage/:id",
+        name: "engageDetail"
+      }
     };
   },
   methods: {
@@ -57,8 +62,9 @@ export default {
         type: 1
       })
         .then(res => {
-          console.log(res);
+          console.log(res.data.results);
           this.tableData = res.data.results;
+          this.total = res.data.count;
         })
         .catch(err => {
           this.$store.commit("errHandler", err);
@@ -67,7 +73,6 @@ export default {
   },
   mounted() {
     this.getEngage();
-    console.log(this.$route);
   }
 };
 </script>

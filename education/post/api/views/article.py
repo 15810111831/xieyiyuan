@@ -11,7 +11,7 @@ class ArticleViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.Li
     queryset = Article.objects.all()
     serializer_class = ArticleSerializer
     search_fields = ('title', 'content')
-    filter_fields = ('type__name', )
+    filter_fields = ('type', )
 
     def get_queryset(self):
         queryset = super(ArticleViewSet, self).get_queryset()
@@ -24,3 +24,8 @@ class ArticleViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.Li
     def perform_update(self, serializer):
         data = self.request.data
         serializer.save(type_id=data['type'], user_id=data['user'])
+
+    def get_permissions(self):
+        if 'create' not in self.action:
+            return []
+        return super(ArticleViewSet, self).get_permissions()

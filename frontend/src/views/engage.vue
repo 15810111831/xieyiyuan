@@ -29,7 +29,7 @@
           </el-select>
         </el-form-item>
         <el-form-item label="授课地区详细描述" prop="district_des">
-          <el-input v-model="ruleForm.district_des"></el-input>
+          <el-input v-model="ruleForm.district_des" type="textarea"></el-input>
         </el-form-item>
 
         <div class="formTitle">
@@ -76,6 +76,9 @@
         </el-form-item>
         <el-form-item label="收费标准" prop="charge">
           <el-input v-model="ruleForm.charge"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitForm">提交</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -142,11 +145,11 @@ export default {
     };
   },
   methods: {
-    submitForm(formName) {
+    submitForm() {
       if (this.created) {
         return false;
       }
-      this.$refs[formName].validate(valid => {
+      this.$refs["ruleForm"].validate(valid => {
         if (valid) {
           this.created = true;
           engagePost(this.ruleForm)
@@ -154,10 +157,15 @@ export default {
               console.log(res);
               this.$message({
                 type: "success",
-                message: "注册成功,3秒后跳转至登录页面"
+                message: "信息提交成功"
+              });
+              this.$router.push({
+                path: "/",
+                name: "home"
               });
             })
             .catch(err => {
+              console.log(err);
               this.$store.commit("errHandler", err);
               this.created = false;
             });

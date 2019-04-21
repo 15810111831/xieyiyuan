@@ -13,6 +13,8 @@ class EngageViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
     queryset = Engage.objects.all()
     serializer_class = EngageSerializer
     permission_classes = [permissions.IsAuthenticated]
+    filter_fields = ('gender', 'teacher_gender', 'district')
+    search_fields = ('subejct',)
 
     def get_permissions(self):
         if 'create' not in self.action:
@@ -24,6 +26,6 @@ class EngageViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
         grade = data['grade']
         district = data.get('district', None)
         if district is not None:
-            serializer.save(grade_id=grade, district_id=district)
+            serializer.save(grade_id=grade, district_id=district, user_id=data['user'])
         else:
             serializer.save(grade_id=grade)

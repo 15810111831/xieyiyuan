@@ -15,6 +15,11 @@
           :prop="prop.value"
           :label="prop.label"
         ></el-table-column>
+        <el-table-column fixed="right" label="操作" width="100">
+          <template slot-scope="scope">
+            <el-button @click="toDetail(scope.row)" type="text" size="small">查看</el-button>
+          </template>
+        </el-table-column>
       </el-table>
     </el-main>
   </div>
@@ -35,6 +40,10 @@ export default {
     tableProps: {
       type: Array,
       default: []
+    },
+    route: {
+      type: Object,
+      detault: {}
     }
   },
   methods: {
@@ -50,6 +59,13 @@ export default {
         .catch(err => {
           this.$store.commit("errHandler", err);
         });
+    },
+    toDetail(row) {
+      this.$router.push({
+        path: this.route.path,
+        name: this.route.name,
+        params: { id: row.id }
+      });
     }
   }
 };

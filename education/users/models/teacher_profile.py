@@ -19,6 +19,8 @@ class TeacherProfile(models.Model):
     mobile = models.CharField('手机号', max_length=11, unique=True, error_messages={
         'unique': "相同手机号已存在",
     })
+    email = models.CharField("邮箱", max_length=50)
+    head_img = models.ImageField('头像', upload_to="headimgs", null=True, blank=True)
     name = models.CharField('姓名', max_length=32)
     birthday = models.DateField('出生日期')
     from_province = models.CharField('来自省份', max_length=50)

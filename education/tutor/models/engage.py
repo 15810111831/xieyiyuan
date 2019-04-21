@@ -32,6 +32,7 @@ class Engage(models.Model):
     teacher_gender = models.SmallIntegerField('性别', choices=gender_type_choices, null=True, blank=True)
     teacher_des = models.TextField('对教员其他要求', null=True, blank=True)
     charge = models.CharField('收费要求', max_length=50)
+    create_datetime = models.DateTimeField('创建时间', auto_now=True)
 
     class Meta:
         verbose_name = '请家教-下单'

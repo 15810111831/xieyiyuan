@@ -15,7 +15,7 @@
   </div>
 </template>
 <script>
-import { userUploadIdCard } from "../api/user";
+import { userUploadIdCard, userDetail } from "../api/user";
 
 export default {
   name: "upload",
@@ -44,11 +44,24 @@ export default {
       userUploadIdCard(this.$cookies.get("user_id"), formData)
         .then(res => {
           console.log(res);
+          this.$message({
+            type: "success",
+            message: "上传成功，请等待审核"
+          });
+          this.$router.push({
+            path: "/",
+            name: "home"
+          });
         })
         .catch(err => {
           console.log(err);
         });
     }
+  },
+  mounted() {
+    userDetail(this.$cookies.get("user_id")).then(res => {
+      this.imageUrl = res.data.teacherprofile_set[0].id_code_pic;
+    });
   }
 };
 </script>

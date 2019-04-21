@@ -64,13 +64,20 @@ export default {
   },
   methods: {
     async login() {
-      let data = await this.$axios.post("/rest-auth/api/login/", this.ruleForm);
-      if (data && data.data.key) {
-        this.$cookies.set("Token", data.data.key);
-        this.$router.push({
-          path: "/",
-          name: "home"
-        });
+      try {
+        let data = await this.$axios.post(
+          "/rest-auth/api/login/",
+          this.ruleForm
+        );
+        if (data && data.data.key) {
+          this.$cookies.set("Token", data.data.key);
+          this.$router.push({
+            path: "/",
+            name: "home"
+          });
+        }
+      } catch (error) {
+        this.$store.commit("errHandler", error);
       }
     },
     submitForm(formName) {

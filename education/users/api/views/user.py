@@ -52,6 +52,7 @@ class UserViewSet(viewsets.ModelViewSet):
                     work_area_id=data['work_area'],
                     address=data['address'],
                     postal_code=data['postal_code'],
+                    email=data['email']
                 )
             except Exception as e:
                 print e
@@ -102,15 +103,13 @@ class UserViewSet(viewsets.ModelViewSet):
     def upload_id_pic(self, request, pk):
         instance = self.get_object()
         file = request.FILES.get('id_code_pic', None)
-        print file
         if not file:
             return Response({'detail': '请传入图片'}, status=status.HTTP_400_BAD_REQUEST)
         teacherprofile = instance.teacherprofile_set.first()
-        print teacherprofile
-        teacherprofile.id_code_pic.save('id_code_pic', file)
+        teacherprofile.id_code_pic.save(file.name, file)
         return Response({'detail': '上传成功'}, status=status.HTTP_200_OK)
 
     def get_permissions(self):
-        if self.action == 'create' or self.action == 'list':
+        if self.action == 'create' or self.action == 'list' or self.action == 'retrieve':
             return []
         return super(UserViewSet, self).get_permissions()

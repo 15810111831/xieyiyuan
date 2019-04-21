@@ -6,7 +6,6 @@
           <el-card show="always">
             <div slot="header" class="clearfix">
               <span>教员基本信息</span>
-              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
             </div>
             <el-row :gutter="20" class="row">
               <el-col :span="6">姓名:</el-col>
@@ -46,7 +45,6 @@
           <el-card>
             <div slot="header" class="clearfix">
               <span>家教信息</span>
-              <el-button style="float: right; padding: 3px 0" type="text">操作按钮</el-button>
             </div>
             <el-row :gutter="20" class="row">
               <el-col :span="6">可受教科目</el-col>

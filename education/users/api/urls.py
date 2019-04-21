@@ -3,7 +3,7 @@
 from rest_framework import routers
 from users.api.views import (
     UserViewSet, DistrictViewSet, PositionViewSet, PriceViewSet,
-    SubjectViewSet, WayViewSet, SchoolViewSet
+    SubjectViewSet, WayViewSet, SchoolViewSet, TeacherProfileViewSet
 )
 
 
@@ -16,4 +16,5 @@ router.register(r'price', PriceViewSet, base_name='price')
 router.register(r'subject', SubjectViewSet, base_name='subject')
 router.register(r'way', WayViewSet, base_name='way')
 router.register(r'school', SchoolViewSet, base_name='school')
+router.register(r'teacherprofile', TeacherProfileViewSet, base_name="teacherprofil")
 urlpatterns = router.urls

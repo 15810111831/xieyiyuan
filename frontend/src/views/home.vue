@@ -11,7 +11,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>高校分类</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
           <div v-for="o in schools" :key="o.id" class="text item">{{o.name}}</div>
         </el-card>
@@ -20,7 +20,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>科目分类</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
           <div v-for="o in subjects" :key="o.id" class="text item">{{o.name }}</div>
         </el-card>
@@ -29,7 +29,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>区域分类</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
           <div v-for="o in districts" :key="o.id" class="text item">{{o.name}}</div>
         </el-card>
@@ -41,7 +41,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>专业教师库</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
           <el-table :data="teachers" style="width: 100%" @row-click="rowClick">
             <el-table-column prop="teacher_name" label="姓名"></el-table-column>
@@ -49,6 +49,11 @@
             <el-table-column prop="teacher_subject_name" label="职教学科"></el-table-column>
             <el-table-column prop="teacher_position_name" label="目前身份"></el-table-column>
             <el-table-column prop="create_datetime_str" label="认证日期"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="watchTeacher(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </el-card>
       </el-col>
@@ -59,7 +64,7 @@
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>大学生教员库</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
           <el-table :data="student_teachers" style="width: 100%">
             <el-table-column prop="teacher_name" label="姓名"></el-table-column>
@@ -67,24 +72,53 @@
             <el-table-column prop="teacher_specialty" label="专业"></el-table-column>
             <el-table-column prop="teacher_school" label="高校"></el-table-column>
             <el-table-column prop="create_datetime_str" label="认证日期"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="watchTeacher(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </el-card>
       </el-col>
     </el-row>
 
-    <!-- 大学生教师 -->
+    <!-- 学员需求 -->
     <el-row type="flex" justify="space-around" class="row">
       <el-col :span="12">
         <el-card class="box-card">
           <div slot="header" class="clearfix">
             <span>最新学员需求</span>
-            <el-button style="float: right; padding: 3px 0" type="text">更多</el-button>
+            <router-link style="float: right; padding: 3px 0" to="/engageList">更多</router-link>
           </div>
           <el-table :data="engage_data" style="width: 100%">
             <el-table-column prop="subject" label="求教学科"></el-table-column>
             <el-table-column prop="district_des" label="授课区域"></el-table-column>
             <el-table-column prop="teacher_des" label="要求"></el-table-column>
             <el-table-column prop="create_datetime_str" label="时间"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="watchEngage(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-card>
+      </el-col>
+    </el-row>
+    <!-- 论坛文章 -->
+    <el-row type="flex" justify="space-around" class="row">
+      <el-col :span="12">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>论坛文章</span>
+            <router-link style="float: right; padding: 3px 0" to="/postList">更多</router-link>
+          </div>
+          <el-table :data="articles" style="width: 100%">
+            <el-table-column prop="title" label="标题"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="watchArticle(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
           </el-table>
         </el-card>
       </el-col>
@@ -97,6 +131,7 @@ import { getSubjectList } from "../api/subject";
 import { getDistrictList } from "../api/district";
 import { getUserList } from "../api/user";
 import { engageList } from "../api/engage";
+import { articleList } from "../api/article";
 
 export default {
   name: "home",
@@ -108,6 +143,7 @@ export default {
       teachers: [],
       student_teachers: [],
       engage_data: [],
+      articles: [],
       activeIndex: ""
     };
   },
@@ -172,6 +208,12 @@ export default {
         this.engage_data = res.data.results;
       });
     },
+    setArticle() {
+      articleList().then(res => {
+        console.log(res.data);
+        this.articles = res.data.results;
+      });
+    },
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -179,6 +221,27 @@ export default {
       this.$router.push({
         path: "/teacherDetail/:id",
         name: "teacherDetail",
+        params: { id: row.id }
+      });
+    },
+    watchTeacher(row) {
+      this.$router.push({
+        path: "/teacherDetail/:id",
+        name: "teacherDetail",
+        params: { id: row.id }
+      });
+    },
+    watchArticle(row) {
+      this.$router.push({
+        path: "/post/:id",
+        name: "postDetail",
+        params: { id: row.id }
+      });
+    },
+    watchEngage(row) {
+      this.$router.push({
+        path: "/engage/:id",
+        name: "engageDetail",
         params: { id: row.id }
       });
     }
@@ -190,6 +253,7 @@ export default {
     this.setTeacher();
     this.setStudentTeacher();
     this.setEngage();
+    this.setArticle();
   }
 };
 </script>

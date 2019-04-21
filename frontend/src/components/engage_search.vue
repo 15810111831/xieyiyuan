@@ -20,6 +20,7 @@
           :value="item.id"
         ></el-option>
       </el-select>
+      <el-input style="width:250px;" v-model="subject" placeholder="请输入请教学科"></el-input>
       <el-button @click="searchEngage">搜索</el-button>
     </el-row>
   </div>
@@ -34,16 +35,28 @@ export default {
     return {
       teachGenderOptions: [
         {
+          id: 0,
+          name: "请选择"
+        },
+        {
           id: 1,
           name: "男"
         },
         {
           id: 2,
           name: "女"
+        },
+        {
+          id: 3,
+          name: "均可"
         }
       ],
       districtOptions: [],
       genderOptions: [
+        {
+          id: 0,
+          name: "请选择"
+        },
         {
           id: 1,
           name: "男"
@@ -55,7 +68,8 @@ export default {
       ],
       district: "",
       gender: "",
-      teach_gender: ""
+      teach_gender: "",
+      subject: ""
     };
   },
   methods: {
@@ -68,28 +82,23 @@ export default {
     },
     searchEngage() {
       let params = {
-        type: 1
+        page_size: 20
       };
-      if (this.subject) {
-        params.teacherprofile__subjects = this.subject;
+      if (this.teacher_gender && this.teacher_gender != 0) {
+        params.teacher_gender = this.teacher_gender;
       }
-      if (this.school) {
-        params.teacherprofile__school = this.school;
-      }
-      if (this.position) {
-        params.teacherprofile__position = this.position;
-      }
-      if (this.gender) {
-        params.teacherprofile__gender = this.gender;
+      if (this.gender && this.gender != 0) {
+        params.gender = this.gender;
       }
       if (this.district) {
-        params.teacherprofile__district = this.district;
+        params.district = this.district;
+      }
+      if (subject) {
+        params.search = this.subject;
       }
       engageList(params).then(res => {
-        console.log(res);
         this.$parent.tableData = res.data.results;
-        this.$parent.total = res.data.count;
-        console.log(this);
+        this.$parent.total = Math.ceil(res.data.count / 20);
       });
     }
   },

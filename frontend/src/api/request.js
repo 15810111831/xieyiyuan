@@ -47,7 +47,9 @@ export function requestPut(url, id, data) {
 
 export function requestPatch(url, id, data) {
     return new Promise((resolve, reject) => {
-        axios.put(`${url}${id}/`, data).then(res => {
+        axios.patch(`${url}${id}/`, {
+            data,
+        }).then(res => {
             resolve(res)
         }).catch(err => {
             reject(err)

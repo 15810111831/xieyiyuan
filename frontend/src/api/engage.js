@@ -1,5 +1,7 @@
-import requestPost, {
-    requestGetList
+import {
+    requestPost,
+    requestGetList,
+    requestGetDetail
 } from './request'
 
 export function engagePost(data) {
@@ -15,7 +17,7 @@ export function engagePost(data) {
 
 export function engageDetail(id) {
     return new Promise((resolve, reject) => {
-        requestPost(`/tutor/api/engage/${id}`)
+        requestGetDetail(`/tutor/api/engage/`, id)
             .then(res => {
                 resolve(res)
             }).catch(err => {

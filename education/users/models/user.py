@@ -55,7 +55,7 @@ class User(AbstractUser):
     def get_teacher_subject(self):
         teacherprofile = self.teacherprofile_set.all()
         if teacherprofile and teacherprofile[0].subjects.all():
-            return teacherprofile[0].subjects.all()
+            return ",".join(teacherprofile[0].subjects.values_list("name", flat=True))
         else:
             return ''
 

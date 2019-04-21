@@ -1,7 +1,7 @@
 <template>
   <div id="teacher">
     <teacher-search></teacher-search>
-    <teacher-list :tableData="tableData" :tableProps="tableProps"></teacher-list>
+    <teacher-list :tableData="tableData" :tableProps="tableProps" :total="total" :route="route"></teacher-list>
   </div>
 </template>
 <script>
@@ -43,7 +43,12 @@ export default {
           value: "create_datetime_str",
           label: "登记日期"
         }
-      ]
+      ],
+      total: null,
+      route: {
+        path: "/teacherDetail/:id",
+        name: "teacherDetail"
+      }
     };
   },
   methods: {
@@ -55,6 +60,7 @@ export default {
         .then(res => {
           console.log(res);
           this.tableData = res.data.results;
+          this.total = Math.ceil(res.data.count / 20);
         })
         .catch(err => {
           this.$store.commit("errHandler", err);
@@ -63,7 +69,6 @@ export default {
   },
   mounted() {
     this.getTeacher();
-    console.log(this.$route);
   }
 };
 </script>

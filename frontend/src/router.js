@@ -55,20 +55,56 @@ export default new Router({
           }
         },
         {
-          path: "upload",
+          path: "/upload",
           name: "upload",
           component: () => import("./views/upload.vue"),
           meta: {
             title: "上传认证信息",
-            requiresAuth: false
+            requiresAuth: true
           }
         },
         {
-          path: "post",
+          path: "/teacherinfo/",
+          name: "teacherinfo",
+          component: () => import("./views/teacherInfo.vue"),
+          meta: {
+            title: "教师详情信息",
+            requiresAuth: true
+          }
+        },
+        {
+          path: "/post",
           name: "post",
           component: () => import("./views/post.vue"),
           meta: {
             title: "发表论坛信息",
+            requiresAuth: true
+          }
+        },
+        {
+          path: "/post/:id",
+          name: "postDetail",
+          component: () => import("./views/postDetail.vue"),
+          meta: {
+            title: "论坛文章",
+            requiresAuth: false
+          }
+        },
+        {
+          path: "/postList",
+          name: "postList",
+          component: () => import("./views/postList.vue"),
+          meta: {
+            title: "论坛文章",
+            requiresAuth: false
+          }
+        },
+        {
+          path: "/engage/:id",
+          name: "engageDetail",
+          component: () => import("./views/engageDetail.vue"),
+          meta: {
+            title: "请家教详情",
             requiresAuth: false
           }
         }
