@@ -14,7 +14,7 @@ class EngageViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
     serializer_class = EngageSerializer
     permission_classes = [permissions.IsAuthenticated]
     filter_fields = ('gender', 'teacher_gender', 'district')
-    search_fields = ('subejct',)
+    search_fields = ('subject',)
 
     def get_permissions(self):
         if 'create' not in self.action:

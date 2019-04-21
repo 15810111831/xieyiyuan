@@ -12,7 +12,7 @@
       <el-select v-model="gender" placeholder="学员性别">
         <el-option v-for="item in genderOptions" :key="item.id" :label="item.name" :value="item.id"></el-option>
       </el-select>
-      <el-select v-model="teach_gender" placeholder="教员性别">
+      <el-select v-model="teacher_gender" placeholder="教员性别">
         <el-option
           v-for="item in teachGenderOptions"
           :key="item.id"
@@ -66,9 +66,9 @@ export default {
           name: "女"
         }
       ],
-      district: "",
-      gender: "",
-      teach_gender: "",
+      district: null,
+      gender: null,
+      teacher_gender: null,
       subject: ""
     };
   },
@@ -93,9 +93,10 @@ export default {
       if (this.district) {
         params.district = this.district;
       }
-      if (subject) {
+      if (this.subject) {
         params.search = this.subject;
       }
+      console.log(params);
       engageList(params).then(res => {
         this.$parent.tableData = res.data.results;
         this.$parent.total = Math.ceil(res.data.count / 20);
