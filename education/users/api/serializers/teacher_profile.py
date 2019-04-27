@@ -34,5 +34,7 @@ class TeacherProfileSerializer(serializers.ModelSerializer):
             'subjects',
             'teach_area',
             'way',
-            'price'
+            'price',
+            'get_status_display',
         )
+        read_only_fields = ('get_status_display',)

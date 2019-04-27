@@ -14,10 +14,6 @@ class ChoiceTeacherViewSet(viewsets.GenericViewSet, mixins.ListModelMixin, mixin
     serializer_class = ChoiceTeacherSerializer
     filter_fields = ('student',)
 
-    def get_queryset(self):
-        queryset = super(ChoiceTeacherViewSet, self).get_queryset()
-        return queryset.filter(status=1)
-
     def perform_create(self, serializer):
         data = self.request.data
         exists = ChoiceTeacher.objects.filter(user_id=data['user']).exists()

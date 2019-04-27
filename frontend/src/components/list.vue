@@ -9,6 +9,11 @@
         @current-change="handleCurrentChange"
       ></el-pagination>
       <el-table :data="tableData" style="width: 100%" ref="table">
+        <el-table-column label="头像" width="100">
+          <template slot-scope="scope">
+            <img style="width: 50px;height:50px;" :src="scope.row.teacherprofile_set[0].head_img">
+          </template>
+        </el-table-column>
         <el-table-column
           v-for="prop in tableProps"
           :key="prop.value"
@@ -30,7 +35,14 @@
     </el-main>
     <!-- 预约表单 -->
     <el-dialog title="预约教师" :visible.sync="showForm" width="50%" v-if="type == 2">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px" label-position="top">
+      <el-form
+        ref="form"
+        :model="form"
+        :rules="rules"
+        label-width="80px"
+        label-position="top"
+        :inline="true"
+      >
         <el-form-item label="选择发布的相关信息" prop="engage">
           <el-select v-model="form.engage" placeholder="请选择">
             <el-option
@@ -40,6 +52,25 @@
               :value="item.id"
             ></el-option>
           </el-select>
+        </el-form-item>
+        <el-form-item label="开始日期" prop="start_date">
+          <el-date-picker
+            v-model="form.start_date"
+            type="date"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="结束日期" prop="end_date">
+          <el-date-picker
+            v-model="form.end_date"
+            type="date"
+            placeholder="选择日期"
+            value-format="yyyy-MM-dd"
+          ></el-date-picker>
+        </el-form-item>
+        <el-form-item label="日均价" prop="price">
+          <el-input type="number" v-model="form.price"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button @click="choiceTeacher" type="primary">保存</el-button>
@@ -79,14 +110,39 @@ export default {
       form: {
         user: null,
         engage: null,
-        student: parseInt(this.$cookies.get("user_id"))
+        student: parseInt(this.$cookies.get("user_id")),
+        start_date: "",
+        end_date: "",
+        price: null
       },
       rules: {
         engage: [
           {
             required: true,
             message: "请选择发布的信息",
+            type: "number",
             tigger: ["blur", "change"]
+          }
+        ],
+        start_date: [
+          {
+            required: true,
+            message: "请选择开始日期",
+            tigger: ["blur", "change"]
+          }
+        ],
+        end_date: [
+          {
+            required: true,
+            message: "请选择结束日期",
+            tigger: ["blur", "change"]
+          }
+        ],
+        price: [
+          {
+            required: true,
+            message: "请输入日均价",
+            tigger: "blur"
           }
         ]
       },

@@ -32,11 +32,12 @@
         <el-form-item label="头像">
           <el-upload
             class="avatar-uploader"
-            action="https://jsonplaceholder.typicode.com/posts/"
+            action="#"
+            :auto-upload="false"
             :show-file-list="false"
-            :on-success="handleAvatarSuccess"
+            :on-change="handleAvatarSuccess"
           >
-            <img v-if="ruleForm.head_img" :src="imgUrl" class="avatar">
+            <img v-if="imgUrl" :src="imgUrl" class="avatar">
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-form-item>
@@ -421,10 +422,16 @@ export default {
         this.schoolOptions = res.data.results;
       });
     },
-    handleAvatarSuccess(res, file) {
+    handleAvatarSuccess(file, filelist) {
       console.log(file);
       this.ruleForm.head_img = file.raw;
-      this.imgUrl = URL.createObjectURL(file.raw);
+      var reader = new FileReader();
+      reader.onload = function() {
+        var result = this.result;
+        this.imgUrl = result;
+        console.log(this.imgUrl);
+      };
+      reader.readAsDataURL(file.raw);
     }
   },
   mounted() {
