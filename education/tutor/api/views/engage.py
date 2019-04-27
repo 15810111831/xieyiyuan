@@ -13,7 +13,7 @@ class EngageViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin,
     queryset = Engage.objects.all()
     serializer_class = EngageSerializer
     permission_classes = [permissions.IsAuthenticated]
-    filter_fields = ('gender', 'teacher_gender', 'district')
+    filter_fields = ('gender', 'teacher_gender', 'district', 'user')
     search_fields = ('subject',)
 
     def get_permissions(self):

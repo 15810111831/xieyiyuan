@@ -19,7 +19,7 @@
       <el-collapse-item v-if="comments.length == 0" title="评论列表">暂无评论</el-collapse-item>
     </el-collapse>
     <el-button @click="showComment">添加评论</el-button>
-    <el-dialog title="添加评论" :visible.sync="commentVisible" width="30%">
+    <el-dialog title="添加评论" :visible.sync="commentVisible" width="50%">
       <el-form ref="form" :model="form" label-width="80px" :rules="rules">
         <el-form-item label="评论内容">
           <el-input type="textarea" v-model="form.content"></el-input>

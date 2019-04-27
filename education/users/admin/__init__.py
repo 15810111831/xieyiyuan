@@ -5,3 +5,4 @@ from .price import *
 from .subject import *
 from .way import *
 from .school import *
+from .user_comment import *

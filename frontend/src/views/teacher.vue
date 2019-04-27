@@ -9,6 +9,7 @@ import teacherSearch from "../components/teacher_search";
 import teacherList from "../components/list";
 
 import { getUserList } from "../api/user";
+
 export default {
   name: "teacher",
   components: {
@@ -48,17 +49,19 @@ export default {
       route: {
         path: "/teacherDetail/:id",
         name: "teacherDetail"
-      }
+      },
+      search: ""
     };
   },
   methods: {
     getTeacher() {
+      console.log("tesdasdsa");
       getUserList({
         page_size: 20,
-        type: 1
+        type: 1,
+        search: this.search
       })
         .then(res => {
-          console.log(res);
           this.tableData = res.data.results;
           this.total = Math.ceil(res.data.count / 20);
         })
@@ -69,6 +72,12 @@ export default {
   },
   mounted() {
     this.getTeacher();
+  },
+  watch: {
+    $route(to, from, next) {
+      this.search = to.query.search;
+      this.getTeacher();
+    }
   }
 };
 </script>

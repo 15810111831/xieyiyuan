@@ -6,3 +6,4 @@ from .price import PriceViewSet
 from .subject import SubjectViewSet
 from .way import WayViewSet
 from .teacher_profile import TeacherProfileViewSet
+from .user_comment import UserCommentViewSet

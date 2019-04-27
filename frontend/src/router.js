@@ -107,6 +107,15 @@ export default new Router({
             title: "请家教详情",
             requiresAuth: false
           }
+        },
+        {
+          path: "/studentinfo/",
+          name: 'studentinfo',
+          component: () => import("./views/studentinfo.vue"),
+          meta: {
+            title: '学员信息',
+            requiresAuth: true
+          }
         }
       ]
     },

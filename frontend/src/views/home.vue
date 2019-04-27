@@ -43,7 +43,7 @@
             <span>专业教师库</span>
             <router-link style="float: right; padding: 3px 0" to="/teacher">更多</router-link>
           </div>
-          <el-table :data="teachers" style="width: 100%" @row-click="rowClick">
+          <el-table :data="teachers" style="width: 100%">
             <el-table-column prop="teacher_name" label="姓名"></el-table-column>
             <el-table-column prop="teacher_gender" label="性别"></el-table-column>
             <el-table-column prop="teacher_subject_name" label="职教学科"></el-table-column>
@@ -51,7 +51,17 @@
             <el-table-column prop="create_datetime_str" label="认证日期"></el-table-column>
             <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
-                <el-button @click="watchTeacher(scope.row)" type="text" size="small">查看</el-button>
+                <el-button
+                  @click="watchTeacher(scope.$index, scope.row)"
+                  type="text"
+                  size="small"
+                >查看</el-button>
+                <el-button
+                  @click="choice(scope.$index, scope.row)"
+                  type="text"
+                  size="small"
+                  v-if="type == 2"
+                >预约</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -75,6 +85,12 @@
             <el-table-column fixed="right" label="操作" width="100">
               <template slot-scope="scope">
                 <el-button @click="watchTeacher(scope.row)" type="text" size="small">查看</el-button>
+                <el-button
+                  @click="choice(scope.$index, scope.row)"
+                  type="text"
+                  size="small"
+                  v-if="type == 2"
+                >预约</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -123,6 +139,25 @@
         </el-card>
       </el-col>
     </el-row>
+
+    <!-- 预约表单 -->
+    <el-dialog title="预约教师" :visible.sync="showForm" width="50%" v-if="type == 2">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px" label-position="top">
+        <el-form-item label="选择发布的相关信息" prop="engage">
+          <el-select v-model="form.engage" placeholder="请选择">
+            <el-option
+              v-for="item in userEngage"
+              :key="item.id"
+              :label="item.name"
+              :value="item.id"
+            ></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="choiceTeacher" type="primary">保存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
@@ -132,6 +167,7 @@ import { getDistrictList } from "../api/district";
 import { getUserList } from "../api/user";
 import { engageList } from "../api/engage";
 import { articleList } from "../api/article";
+import { choiceteacherPost } from "../api/choiceTeacher";
 
 export default {
   name: "home",
@@ -143,8 +179,25 @@ export default {
       teachers: [],
       student_teachers: [],
       engage_data: [],
+      userEngage: [],
       articles: [],
-      activeIndex: ""
+      activeIndex: "",
+      type: null,
+      showForm: false,
+      form: {
+        user: null,
+        engage: null,
+        student: parseInt(this.$cookies.get("user_id"))
+      },
+      rules: {
+        engage: [
+          {
+            required: true,
+            message: "请选择发布的信息",
+            tigger: "change"
+          }
+        ]
+      }
     };
   },
   methods: {
@@ -182,7 +235,6 @@ export default {
         search: "教师"
       })
         .then(res => {
-          console.log(res);
           this.teachers = res.data.results;
         })
         .catch(err => {
@@ -196,7 +248,6 @@ export default {
         search: "学生"
       })
         .then(res => {
-          console.log(res);
           this.student_teachers = res.data.results;
         })
         .catch(err => {
@@ -210,21 +261,17 @@ export default {
     },
     setArticle() {
       articleList().then(res => {
-        console.log(res.data);
         this.articles = res.data.results;
       });
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    rowClick(row, column) {
-      this.$router.push({
-        path: "/teacherDetail/:id",
-        name: "teacherDetail",
-        params: { id: row.id }
+    setUserEngage() {
+      engageList({
+        user: this.$cookies.get("user_id")
+      }).then(res => {
+        this.userEngage = res.data.results;
       });
     },
-    watchTeacher(row) {
+    watchTeacher(index, row) {
       this.$router.push({
         path: "/teacherDetail/:id",
         name: "teacherDetail",
@@ -244,6 +291,24 @@ export default {
         name: "engageDetail",
         params: { id: row.id }
       });
+    },
+    choice(index, row) {
+      this.form.user = row.id;
+      this.showForm = true;
+    },
+    choiceTeacher() {
+      choiceteacherPost(this.form)
+        .then(res => {
+          this.$message({
+            type: "success",
+            message: "已选定该教师,可以在个人信息中查看"
+          });
+          this.showForm = false;
+        })
+        .catch(err => {
+          this.$store.commit("errHandler", err);
+          this.showForm = false;
+        });
     }
   },
   mounted() {
@@ -254,6 +319,8 @@ export default {
     this.setStudentTeacher();
     this.setEngage();
     this.setArticle();
+    this.setUserEngage();
+    this.type = this.$cookies.get("type");
   }
 };
 </script>

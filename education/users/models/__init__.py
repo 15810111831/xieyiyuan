@@ -7,3 +7,4 @@ from .way import Way
 from .price import Price
 from .teacher_profile import TeacherProfile
 from .student_profile import StudentProfile
+from .userComment import UserComment

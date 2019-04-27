@@ -80,16 +80,51 @@
         </el-col>
       </el-row>
     </div>
+
+    <el-collapse style="margin-top:40px;">
+      <el-collapse-item title="评论列表" name="1" v-if="comments.length > 0">
+        <el-timeline-item
+          v-for="comment in comments"
+          :key="comment.id"
+          :timestamp="comment.create_date"
+        >{{comment.comment}}</el-timeline-item>
+      </el-collapse-item>
+      <el-collapse-item v-if="comments.length == 0" title="评论列表">暂无评论</el-collapse-item>
+    </el-collapse>
+    <el-button @click="showComment">添加评论</el-button>
+    <el-dialog title="添加评论" :visible.sync="commentVisible" width="50%">
+      <el-form ref="form" :model="form" label-width="80px" :rules="rules">
+        <el-form-item label="评论内容" prop="comment">
+          <el-input type="textarea" v-model="form.comment"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="create">发表</el-button>
+          <el-button @click="commentVisible = false">取消</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 <script>
 import { userDetail } from "../api/user";
+import { userCommentList, userCommentPost } from "../api/user_comment";
 export default {
   name: "teacherDetail",
   data() {
     return {
       detail: {},
-      id: null
+      id: null,
+      created: false,
+      commentVisible: false,
+      comments: [],
+      form: {
+        comment: "",
+        user: null,
+        creator: parseInt(this.$cookies.get("user_id"))
+      },
+      rules: {
+        comment: [{ required: true, message: "请添加评论", trigger: "blur" }]
+      }
     };
   },
   methods: {
@@ -97,11 +132,39 @@ export default {
       userDetail(this.id).then(res => {
         this.detail = res.data;
       });
+    },
+    showComment() {
+      this.commentVisible = true;
+    },
+    create() {
+      if (this.created) return false;
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          this.created = true;
+          userCommentPost(this.form)
+            .then(res => {
+              this.created = false;
+              this.$message({
+                type: "success",
+                message: "发表成功, 审核通过将会显示"
+              });
+              this.commentVisible = false;
+            })
+            .catch(err => {
+              this.$store.commit("errHandler", err);
+              this.created = false;
+            });
+        }
+      });
     }
   },
   mounted() {
-    this.id = this.$route.params.id;
+    this.form.user = this.id = this.$route.params.id;
+
     this.getUserDetail();
+    userCommentList({ user: this.id }).then(res => {
+      this.comments = res.data.results;
+    });
   }
 };
 </script>

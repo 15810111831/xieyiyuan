@@ -6,3 +6,4 @@ from .price import PriceSerializer
 from .subject import SubjectSerializer
 from .way import WaySerializer
 from .teacher_profile import TeacherProfileSerializer
+from .user_comment import UserCommentSerializer

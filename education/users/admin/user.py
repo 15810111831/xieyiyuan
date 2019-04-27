@@ -15,7 +15,7 @@ class TeacherProfileInlineAdmin(admin.StackedInline):
         }),
         (
             None, {
-                'fields': ('id_code_pic', 'head_img', 'status')
+                'fields': ('id_code_pic', 'head_img', 'status',)
             }
         )
     )
@@ -30,7 +30,7 @@ class StudentProfileInlineAdmin(admin.TabularInline):
 
 class UserAdmin(admin.ModelAdmin):
 
-    fields = ('username', 'type')
+    fields = ('username', 'type', 'is_active', 'is_staff', 'groups')
     inlines = [TeacherProfileInlineAdmin, StudentProfileInlineAdmin]
 
 

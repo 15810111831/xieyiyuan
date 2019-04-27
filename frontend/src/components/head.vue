@@ -5,7 +5,9 @@
       <el-menu-item index="/register" v-if="!username">注册</el-menu-item>
       <el-submenu index="/userinfo" v-if="username">
         <template slot="title">用户: {{username}}</template>
-        <el-menu-item index="/teacherinfo/">详情信息</el-menu-item>
+        <el-menu-item index="/teacherinfo/" v-if="type == 1">详情信息</el-menu-item>
+        <el-menu-item index="/studentinfo/" v-if="type == 2">详情信息</el-menu-item>
+        <el-menu-item @click="logout">退出</el-menu-item>
       </el-submenu>
       <el-menu-item index="/">首页</el-menu-item>
       <el-menu-item index="/engage" v-if="type == 2">请家教</el-menu-item>
@@ -52,14 +54,21 @@ export default {
       }
     },
     logout() {
-      this.$cookies.set("user_id", "");
-      this.$cookies.set("type", "");
-      this.$cookies.set("username", "");
-      this.username = "";
-      this.type = "";
-      this.$router.push({
-        path: "/",
-        name: "home"
+      this.$confirm("是否确认退出登录?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.$cookies.set("Token", "");
+        this.$cookies.set("user_id", "");
+        this.$cookies.set("type", "");
+        this.$cookies.set("username", "");
+        this.username = "";
+        this.type = "";
+        this.$router.push({
+          path: "/",
+          name: "home"
+        });
       });
     }
   },
