@@ -15,9 +15,24 @@ class TeacherProfileInlineAdmin(admin.StackedInline):
         }),
         (
             None, {
+                'fields': ('address', 'postal_code', 'life_area', 'work_area', 'teach_area', 'teach')
+            }
+        ),
+        (
+            None, {
+                'fields': ('info', 'description', 'cert', 'resume')
+            }
+        ),
+        (
+            None, {
+                'fields': ('subjects', 'way', 'price',)
+            }
+        ),
+        (
+            None, {
                 'fields': ('id_code_pic', 'head_img', 'status',)
             }
-        )
+        ),
     )
     extra = 0
 

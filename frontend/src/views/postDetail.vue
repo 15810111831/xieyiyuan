@@ -121,7 +121,7 @@ export default {
 </script>
 <style scoped>
 #postDetail {
-  width: 1200px;
+  width: 800px;
   margin: 30px auto;
 }
 </style>

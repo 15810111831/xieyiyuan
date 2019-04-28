@@ -13,7 +13,7 @@
       <el-form-item label="内容" prop="content">
         <quill-editor ref="contentEditor" v-model="form.content" :options="options"></quill-editor>
       </el-form-item>
-      <el-button type="primary" @click="create(form)">发表文章</el-button>
+      <el-button type="primary" @click="create('form')">发表文章</el-button>
     </el-form>
   </div>
 </template>

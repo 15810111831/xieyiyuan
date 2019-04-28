@@ -29,7 +29,7 @@ export default {
           label: "目前身份"
         },
         {
-          value: "teacherprofile_set[0].teach_area",
+          value: "teach_area_name",
           label: "授课区域"
         },
         {

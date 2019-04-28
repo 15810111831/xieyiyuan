@@ -6,7 +6,7 @@
           <el-card show="always">
             <div slot="header" class="clearfix">
               <span>教员基本信息</span>
-              <el-button type="primary" @click="showForm = true">预约该教师</el-button>
+              <el-button type="primary" @click="showForm = true" size="small">预约该教师</el-button>
             </div>
             <el-table :data="detail" style="width: 100%">
               <el-table-column type="expand">
@@ -46,6 +46,17 @@
                     style="width: 50px;height:50px;"
                     :src="scope.row.teacherprofile_set[0].head_img"
                   >
+                </template>
+              </el-table-column>
+
+              <el-table-column label="教师评级" width="250">
+                <template slot-scope="scope">
+                  <el-rate
+                    v-model="rate"
+                    show-text
+                    :texts="['一星教师', '二星教师', '中级教师', '高级教师', '金牌教师']"
+                    @change="rateChange"
+                  ></el-rate>
                 </template>
               </el-table-column>
               <el-table-column prop="teacherprofile_set[0].from_province" label="来自省份" width="100"></el-table-column>
@@ -134,6 +145,7 @@
 import { userDetail } from "../api/user";
 import { choiceteacherPost } from "../api/choiceTeacher";
 import { engageList } from "../api/engage";
+import { teacherprofilePatch } from "../api/teacherprofile";
 import { userCommentList, userCommentPost } from "../api/user_comment";
 export default {
   name: "teacherDetail",
@@ -143,6 +155,7 @@ export default {
       id: null,
       created: false,
       commentVisible: false,
+      rate: null,
       comments: [],
       form: {
         comment: "",
@@ -193,14 +206,17 @@ export default {
             tigger: "blur"
           }
         ]
-      }
+      },
+      teacherprofile_id: null,
+      rate: null
     };
   },
   methods: {
     getUserDetail() {
       userDetail(this.id).then(res => {
-        console.log(res.data);
         this.detail.push(res.data);
+        this.teacherprofile_id = res.data.teacherprofile_set[0].id;
+        this.rate = res.data.teacherprofile_set[0].rate;
       });
     },
     showComment() {
@@ -244,6 +260,16 @@ export default {
             });
         }
       });
+    },
+    rateChange(val) {
+      teacherprofilePatch(this.teacherprofile_id, { rate: this.rate }).then(
+        res => {
+          this.$message({
+            type: "succes",
+            message: "评级成功"
+          });
+        }
+      );
     }
   },
   mounted() {

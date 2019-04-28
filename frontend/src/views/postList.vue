@@ -7,18 +7,26 @@
       <el-input v-model="title" placeholder="请输入标题" style="width: 300px;"></el-input>
       <el-button @click="search">搜索</el-button>
     </el-row>
-    <list :tableData="tableData" :tableProps="tableProps" :total="total" :route="route"></list>
+    <el-table :data="tableData" style="width: 100%" ref="table">
+      <el-table-column
+        v-for="prop in tableProps"
+        :key="prop.value"
+        :prop="prop.value"
+        :label="prop.label"
+      ></el-table-column>
+      <el-table-column fixed="right" label="操作" width="100">
+        <template slot-scope="scope">
+          <el-button @click="toDetail(scope.row)" type="text" size="small">查看</el-button>
+        </template>
+      </el-table-column>
+    </el-table>
   </div>
 </template>
 <script>
-import list from "../components/list";
 import { articleTypeList } from "../api/articletype";
 import { articleList } from "../api/article";
 export default {
   name: "postList",
-  components: {
-    list
-  },
   data() {
     return {
       tableData: [],
@@ -67,6 +75,13 @@ export default {
       articleList(params).then(res => {
         console.log("search");
         this.tableData = res.data.results;
+      });
+    },
+    toDetail(row) {
+      this.$router.push({
+        path: this.route.path,
+        name: this.route.name,
+        params: { id: row.id }
       });
     }
   },

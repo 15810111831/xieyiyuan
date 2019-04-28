@@ -3,14 +3,15 @@
     <h2>请上传身份证正面照片 -- 好进行教师信息审核</h2>
     <el-upload
       class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
       :show-file-list="false"
-      :on-success="handleAvatarSuccess"
+      :auto-upload="false"
+      :on-change="handleAvatarSuccess"
       :before-upload="beforeAvatarUpload"
     >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar">
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+      <!-- <img v-if="imageUrl" :src="imageUrl" class="avatar"> -->
+      <i class="el-icon-plus avatar-uploader-icon"></i>
     </el-upload>
+    <div id="img"></div>
     <el-button type="primary" @click="upload">上传</el-button>
   </div>
 </template>
@@ -26,9 +27,18 @@ export default {
     };
   },
   methods: {
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+    handleAvatarSuccess(file, filelist) {
       this.file = file.raw;
+      var reader = new FileReader();
+      reader.onload = function() {
+        this.imageUrl = this.result;
+        console.log();
+        document.getElementById("img").innerHTML =
+          "<img style='max-width:200px;max-height:200px;' class='up_img' src='" +
+          this.result +
+          "' />";
+      };
+      reader.readAsDataURL(file.raw);
     },
     beforeAvatarUpload(file) {
       const isLt2M = file.size / 1024 / 1024 < 2;
@@ -60,7 +70,12 @@ export default {
   },
   mounted() {
     userDetail(this.$cookies.get("user_id")).then(res => {
-      this.imageUrl = res.data.teacherprofile_set[0].id_code_pic;
+      if (res.data.teacherprofile_set[0].id_code_pic) {
+        document.getElementById("img").innerHTML =
+          "<img style='max-width:200px;max-height:200px;' class='up_img' src='" +
+          res.data.teacherprofile_set[0].id_code_pic +
+          "' />";
+      }
     });
   }
 };

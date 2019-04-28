@@ -31,15 +31,16 @@
         </el-form-item>
         <el-form-item label="头像">
           <el-upload
-            class="avatar-uploader"
             action="#"
+            :limit="1"
             :auto-upload="false"
+            :on-change="changeUpload"
             :show-file-list="false"
-            :on-change="handleAvatarSuccess"
+            :file-list="fileList"
           >
-            <img v-if="imgUrl" :src="imgUrl" class="avatar">
-            <i v-else class="el-icon-plus avatar-uploader-icon"></i>
+            <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
+          <div id="img"></div>
         </el-form-item>
         <el-form-item label="出生地" prop="from_province">
           <el-input v-model="ruleForm.from_province"></el-input>
@@ -422,16 +423,17 @@ export default {
         this.schoolOptions = res.data.results;
       });
     },
-    handleAvatarSuccess(file, filelist) {
-      console.log(file);
-      this.ruleForm.head_img = file.raw;
+    changeUpload(file, fileList) {
       var reader = new FileReader();
       reader.onload = function() {
         var result = this.result;
-        this.imgUrl = result;
-        console.log(this.imgUrl);
+        document.getElementById("img").innerHTML =
+          "<img style='max-width:120px;max-height:120px;' class='up_img' src='" +
+          result +
+          "' />";
       };
       reader.readAsDataURL(file.raw);
+      this.ruleForm.head_img = file.raw;
     }
   },
   mounted() {
@@ -451,7 +453,12 @@ export default {
       this.ruleForm = res.data.teacherprofile_set[0];
       delete this.ruleForm["id_code_pic"];
       this.id = res.data.teacherprofile_set[0].id;
-      this.imgUrl = res.data.teacherprofile_set[0].head_img;
+      if (res.data.teacherprofile_set[0].id_code_pic) {
+        document.getElementById("img").innerHTML =
+          "<img style='max-width:200px;max-height:200px;' class='up_img' src='" +
+          res.data.teacherprofile_set[0].id_code_pic +
+          "' />";
+      }
     });
     this.formData = new FormData();
   }

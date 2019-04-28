@@ -52,6 +52,16 @@
                 >
               </template>
             </el-table-column>
+            <el-table-column label="教师评级" width="250">
+              <template slot-scope="scope">
+                <el-rate
+                  v-model="scope.row.teacherprofile_set[0].rate"
+                  show-text
+                  disabled
+                  :texts="['一星教师', '二星教师', '中级教师', '高级教师', '金牌教师']"
+                ></el-rate>
+              </template>
+            </el-table-column>
             <el-table-column prop="teacher_name" label="姓名"></el-table-column>
             <el-table-column prop="teacher_gender" label="性别"></el-table-column>
             <el-table-column prop="teacher_subject_name" label="职教学科"></el-table-column>
@@ -91,6 +101,16 @@
                   style="width: 50px;height:50px;"
                   :src="scope.row.teacherprofile_set[0].head_img"
                 >
+              </template>
+            </el-table-column>
+            <el-table-column label="教师评级" width="250">
+              <template slot-scope="scope">
+                <el-rate
+                  v-model="scope.row.teacherprofile_set[0].rate"
+                  show-text
+                  disabled
+                  :texts="['一星教师', '二星教师', '中级教师', '高级教师', '金牌教师']"
+                ></el-rate>
               </template>
             </el-table-column>
             <el-table-column prop="teacher_name" label="姓名"></el-table-column>

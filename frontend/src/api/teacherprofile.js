@@ -1,5 +1,5 @@
 import {
-    requestPatch
+    requestPatch,
 } from './request'
 
 export function teacherprofilePatch(id, data) {

@@ -76,6 +76,15 @@ class TeacherProfile(models.Model):
     way = models.ManyToManyField(Way, verbose_name='可授课方式')
     price = models.ManyToManyField(Price, verbose_name='薪水要求')
 
+    rate_choices = (
+        (1, '一星教师'),
+        (2, '二星教师'),
+        (3, '中级教师'),
+        (4, '高级教师'),
+        (5, '金牌教师'),
+    )
+    rate = models.SmallIntegerField('评分', choices=rate_choices, null=True, blank=True)
+
     def save(self, *args, **kwargs):
         if self.status == 3:
             self.pass_datetime = datetime.now()
