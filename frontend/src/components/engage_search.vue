@@ -51,7 +51,7 @@ export default {
           name: "均可"
         }
       ],
-      districtOptions: [],
+      districtOptions: [{ id: 0, name: "请选择" }],
       genderOptions: [
         {
           id: 0,
@@ -77,7 +77,9 @@ export default {
       getDistrictList({
         page_size: 100
       }).then(res => {
-        this.districtOptions = res.data.results;
+        for (let i = 0; i < res.data.results.length; i++) {
+          this.districtOptions.push(res.data.results[i]);
+        }
       });
     },
     searchEngage() {
@@ -90,13 +92,12 @@ export default {
       if (this.gender && this.gender != 0) {
         params.gender = this.gender;
       }
-      if (this.district) {
+      if (this.district && this.district != 0) {
         params.district = this.district;
       }
-      if (this.subject) {
+      if (this.subject && this.subject != 0) {
         params.search = this.subject;
       }
-      console.log(params);
       engageList(params).then(res => {
         this.$parent.tableData = res.data.results;
         this.$parent.total = Math.ceil(res.data.count / 20);

@@ -1,10 +1,29 @@
 <template>
   <div id="home">
     <el-carousel :interval="4000" type="card" height="200px">
-      <el-carousel-item v-for="item in 6" :key="item">
-        <h3>{{ item }}</h3>
+      <el-carousel-item v-for="item in images" :key="item">
+        <img :src="item" alt>
       </el-carousel-item>
     </el-carousel>
+
+    <el-row class="row" type="flex" justify="center">
+      <el-col :span="6">
+        <el-card class="box-card">
+          <div slot="header" class="clearfix">
+            <span>官方提示</span>
+          </div>
+          <div>
+            <div class="el-icon-warning">
+              <router-link to="/toteacher">做家教</router-link>
+            </div>
+          </div>
+          <br>
+          <div class="el-icon-warning">
+            <router-link to="/tostudent">请家教</router-link>
+          </div>
+        </el-card>
+      </el-col>
+    </el-row>
 
     <el-row type="flex" justify="space-around" class="row">
       <el-col :span="6">
@@ -235,6 +254,14 @@ export default {
   name: "home",
   data() {
     return {
+      images: [
+        "./images/QJ6315772934.jpg",
+        "./images/QJ6632293985.jpg",
+        "./images/QJ6787475237.jpg",
+        "./images/QJ6849370044.jpg",
+        "./images/QJ6912756960.jpg",
+        "./images/QJ8167624593.jpg"
+      ],
       schools: [],
       subjects: [],
       districts: [],
@@ -423,14 +450,6 @@ export default {
   opacity: 0.75;
   line-height: 200px;
   margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
 }
 
 .row {

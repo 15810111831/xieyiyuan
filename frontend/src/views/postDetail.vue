@@ -104,15 +104,17 @@ export default {
       }
     }
   },
+  beforeCreate() {
+    articleDetail(this.$route.params.id).then(res => {
+      this.detail = res.data;
+    });
+  },
   mounted() {
     this.fetchArticleType();
     this.form.user = parseInt(this.$cookies.get("user_id"));
     this.form.article = this.$route.params.id;
-    articleDetail(this.$route.params.id).then(res => {
-      this.detail = res.data;
-    });
     commentList({
-      // article: this.$route.params.id
+      article: this.$route.params.id
     }).then(res => {
       this.comments = res.data.results;
     });

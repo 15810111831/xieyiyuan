@@ -46,10 +46,15 @@ export default {
   name: "head",
   data() {
     return {
-      subjectOptions: [],
-      districtOptions: [],
-      positionOptions: [],
+      subjectOptions: [{ id: 0, name: "请选择" }],
+      districtOptions: [{ id: 0, name: "请选择" }],
+      positionOptions: [{ id: 0, name: "请选择" }],
+      schoolOptions: [{ id: 0, name: "请选择" }],
       genderOptions: [
+        {
+          id: 0,
+          name: "请选择"
+        },
         {
           id: 1,
           name: "男"
@@ -59,7 +64,6 @@ export default {
           name: "女"
         }
       ],
-      schoolOptions: [],
       subject: "",
       district: "",
       position: "",
@@ -72,54 +76,60 @@ export default {
       getSubjectList({
         page_size: 100
       }).then(res => {
-        this.subjectOptions = res.data.results;
+        for (let i = 0; i < res.data.results.length; i++) {
+          this.subjectOptions.push(res.data.results[i]);
+        }
       });
     },
     getSchool() {
       getSchoolList({
         page_size: 100
       }).then(res => {
-        this.schoolOptions = res.data.results;
+        for (let i = 0; i < res.data.results.length; i++) {
+          this.schoolOptions.push(res.data.results[i]);
+        }
       });
     },
     getPosition() {
       getPositionList({
         page_size: 100
       }).then(res => {
-        this.positionOptions = res.data.results;
+        for (let i = 0; i < res.data.results.length; i++) {
+          this.positionOptions.push(res.data.results[i]);
+        }
       });
     },
     getDistric() {
       getDistrictList({
         page_size: 100
       }).then(res => {
-        this.districtOptions = res.data.results;
+        for (let i = 0; i < res.data.results.length; i++) {
+          this.districtOptions.push(res.data.results[i]);
+        }
       });
     },
     searchTeacher() {
       let params = {
         type: 1
       };
-      if (this.subject) {
+      if (this.subject && this.subject != 0) {
         params.teacherprofile__subjects = this.subject;
       }
-      if (this.school) {
+      if (this.school && this.school != 0) {
         params.teacherprofile__school = this.school;
       }
-      if (this.position) {
+      if (this.position && this.position != 0) {
         params.teacherprofile__position = this.position;
       }
-      if (this.gender) {
+      if (this.gender && this.gender != 0) {
         params.teacherprofile__gender = this.gender;
       }
-      if (this.district) {
+      if (this.district && this.district != 0) {
         params.teacherprofile__district = this.district;
       }
       getUserList(params).then(res => {
-        console.log(res);
         this.$parent.tableData = res.data.results;
         this.$parent.total = res.data.count;
-        console.log(this);
       });
     }
   },

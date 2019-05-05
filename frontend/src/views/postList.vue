@@ -87,12 +87,13 @@ export default {
   },
   mounted() {
     articleList().then(res => {
-      console.log(res.data.results);
       this.tableData = res.data.results;
       this.total = Math.ceil(res.data.count / 20);
     });
     articleTypeList({ page_size: 100 }).then(res => {
-      this.typeOptions.concat(res.data.results);
+      for (let i = 0; i < res.data.results.length; i++) {
+        this.typeOptions.push(res.data.results[i]);
+      }
     });
   }
 };

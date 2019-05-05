@@ -55,7 +55,6 @@ export default {
   },
   methods: {
     getTeacher() {
-      console.log("tesdasdsa");
       getUserList({
         page_size: 20,
         type: 1,
@@ -76,6 +75,7 @@ export default {
   watch: {
     $route(to, from, next) {
       this.search = to.query.search;
+      console.log("search", this.search);
       this.getTeacher();
     }
   }

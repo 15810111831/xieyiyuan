@@ -166,7 +166,6 @@ export default {
         type: 1
       })
         .then(res => {
-          console.log(res);
           this.tableData = res.data.results;
         })
         .catch(err => {
@@ -192,7 +191,6 @@ export default {
       this.showForm = true;
     },
     choiceTeacher() {
-      console.log(this.form);
       choiceteacherPost(this.form)
         .then(res => {
           console.log(res);

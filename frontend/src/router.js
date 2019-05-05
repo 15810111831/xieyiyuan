@@ -116,6 +116,24 @@ export default new Router({
             title: '学员信息',
             requiresAuth: true
           }
+        },
+        {
+          path: "/toteacher/",
+          name: 'toteacher',
+          component: () => import("./views/toTeacher.vue"),
+          meta: {
+            title: '做家教',
+            requiresAuth: false
+          }
+        },
+        {
+          path: "/tostudent/",
+          name: 'tostudent',
+          component: () => import("./views/toStudent.vue"),
+          meta: {
+            title: '请家教',
+            requiresAuth: false
+          }
         }
       ]
     },
