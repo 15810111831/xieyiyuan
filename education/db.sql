@@ -7,7 +7,7 @@
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
- SET NAMES utf8mb4 ;
+ SET NAMES utf8 ;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -21,13 +21,13 @@
 
 DROP TABLE IF EXISTS `auth_group`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `auth_group` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(80) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -45,7 +45,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_group_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `auth_group_permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `group_id` int(11) NOT NULL,
@@ -55,7 +55,7 @@ CREATE TABLE `auth_group_permissions` (
   KEY `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` (`permission_id`),
   CONSTRAINT `auth_group_permissio_permission_id_84c5c92e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `auth_group_permissions_group_id_b120cbf9_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,7 +73,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `auth_permission`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `auth_permission` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) NOT NULL,
@@ -82,7 +82,7 @@ CREATE TABLE `auth_permission` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `auth_permission_content_type_id_codename_01ab375a_uniq` (`content_type_id`,`codename`),
   CONSTRAINT `auth_permission_content_type_id_2f476e4b_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=67 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +101,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `authtoken_token`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `authtoken_token` (
   `key` varchar(40) NOT NULL,
   `created` datetime(6) NOT NULL,
@@ -109,7 +109,7 @@ CREATE TABLE `authtoken_token` (
   PRIMARY KEY (`key`),
   UNIQUE KEY `user_id` (`user_id`),
   CONSTRAINT `authtoken_token_user_id_35299eff_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +128,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_admin_log`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `django_admin_log` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `action_time` datetime(6) NOT NULL,
@@ -143,7 +143,7 @@ CREATE TABLE `django_admin_log` (
   KEY `django_admin_log_user_id_c564eba6_fk_users_user_id` (`user_id`),
   CONSTRAINT `django_admin_log_content_type_id_c4bce8eb_fk_django_co` FOREIGN KEY (`content_type_id`) REFERENCES `django_content_type` (`id`),
   CONSTRAINT `django_admin_log_user_id_c564eba6_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=85 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -162,14 +162,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_content_type`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `django_content_type` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `app_label` varchar(100) NOT NULL,
   `model` varchar(100) NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `django_content_type_app_label_model_76bd3d3b_uniq` (`app_label`,`model`)
-) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,14 +188,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_migrations`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `django_migrations` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `app` varchar(255) NOT NULL,
   `name` varchar(255) NOT NULL,
   `applied` datetime(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,14 +214,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `django_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `django_session` (
   `session_key` varchar(40) NOT NULL,
   `session_data` longtext NOT NULL,
   `expire_date` datetime(6) NOT NULL,
   PRIMARY KEY (`session_key`),
   KEY `django_session_expire_date_a5c62663` (`expire_date`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -240,7 +240,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `post_article`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `post_article` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `title` varchar(100) NOT NULL,
@@ -256,7 +256,7 @@ CREATE TABLE `post_article` (
   KEY `post_article_user_id_37ae6678_fk_users_user_id` (`user_id`),
   CONSTRAINT `post_article_type_id_589456cd_fk_post_articletype_id` FOREIGN KEY (`type_id`) REFERENCES `post_articletype` (`id`),
   CONSTRAINT `post_article_user_id_37ae6678_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -275,12 +275,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `post_articletype`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `post_articletype` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -299,7 +299,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `post_comment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `post_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `content` longtext NOT NULL,
@@ -315,7 +315,7 @@ CREATE TABLE `post_comment` (
   CONSTRAINT `post_comment_article_id_67e008b1_fk_post_article_id` FOREIGN KEY (`article_id`) REFERENCES `post_article` (`id`),
   CONSTRAINT `post_comment_comment_id_b50b4294_fk_post_comment_id` FOREIGN KEY (`comment_id`) REFERENCES `post_comment` (`id`),
   CONSTRAINT `post_comment_user_id_cbfe4e66_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -334,7 +334,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tutor_choiceteacher`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `tutor_choiceteacher` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `status` smallint(6) NOT NULL,
@@ -352,7 +352,7 @@ CREATE TABLE `tutor_choiceteacher` (
   CONSTRAINT `tutor_choiceteacher_engage_id_448451ec_fk_tutor_engage_id` FOREIGN KEY (`engage_id`) REFERENCES `tutor_engage` (`id`),
   CONSTRAINT `tutor_choiceteacher_student_id_1d905280_fk_users_user_id` FOREIGN KEY (`student_id`) REFERENCES `users_user` (`id`),
   CONSTRAINT `tutor_choiceteacher_user_id_496b4873_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -371,7 +371,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tutor_engage`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `tutor_engage` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(30) NOT NULL,
@@ -397,7 +397,7 @@ CREATE TABLE `tutor_engage` (
   CONSTRAINT `tutor_engage_district_id_29977664_fk_users_district_id` FOREIGN KEY (`district_id`) REFERENCES `users_district` (`id`),
   CONSTRAINT `tutor_engage_grade_id_f3ad78a5_fk_tutor_grade_id` FOREIGN KEY (`grade_id`) REFERENCES `tutor_grade` (`id`),
   CONSTRAINT `tutor_engage_user_id_be2606c6_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -416,12 +416,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `tutor_grade`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `tutor_grade` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(32) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -440,12 +440,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_district`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_district` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -464,12 +464,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_position`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_position` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -488,14 +488,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_price`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_price` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   `price` int(11) NOT NULL,
   `type` smallint(6) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -514,12 +514,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_school`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_school` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -538,7 +538,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_studentprofile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_studentprofile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gender` smallint(6) NOT NULL,
@@ -551,7 +551,7 @@ CREATE TABLE `users_studentprofile` (
   UNIQUE KEY `mobile` (`mobile`),
   KEY `users_studentprofile_user_id_d0e95184_fk_users_user_id` (`user_id`),
   CONSTRAINT `users_studentprofile_user_id_d0e95184_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -570,12 +570,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_subject`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_subject` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=60 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -594,7 +594,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_teacherprofile`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_teacherprofile` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `gender` smallint(6) NOT NULL,
@@ -637,7 +637,7 @@ CREATE TABLE `users_teacherprofile` (
   CONSTRAINT `users_teacherprofile_school_id_ce55eb1f_fk_users_school_id` FOREIGN KEY (`school_id`) REFERENCES `users_school` (`id`),
   CONSTRAINT `users_teacherprofile_user_id_976ceafc_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`),
   CONSTRAINT `users_teacherprofile_work_area_id_3fe947a9_fk_users_district_id` FOREIGN KEY (`work_area_id`) REFERENCES `users_district` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -656,7 +656,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_teacherprofile_price`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_teacherprofile_price` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacherprofile_id` int(11) NOT NULL,
@@ -666,7 +666,7 @@ CREATE TABLE `users_teacherprofile_price` (
   KEY `users_teacherprofile_price_price_id_bc553c03_fk_users_price_id` (`price_id`),
   CONSTRAINT `users_teacherprofile_price_price_id_bc553c03_fk_users_price_id` FOREIGN KEY (`price_id`) REFERENCES `users_price` (`id`),
   CONSTRAINT `users_teacherprofile_teacherprofile_id_28311b34_fk_users_tea` FOREIGN KEY (`teacherprofile_id`) REFERENCES `users_teacherprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -685,7 +685,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_teacherprofile_subjects`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_teacherprofile_subjects` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacherprofile_id` int(11) NOT NULL,
@@ -695,7 +695,7 @@ CREATE TABLE `users_teacherprofile_subjects` (
   KEY `users_teacherprofile_subject_id_fcf6bd72_fk_users_sub` (`subject_id`),
   CONSTRAINT `users_teacherprofile_subject_id_fcf6bd72_fk_users_sub` FOREIGN KEY (`subject_id`) REFERENCES `users_subject` (`id`),
   CONSTRAINT `users_teacherprofile_teacherprofile_id_04283985_fk_users_tea` FOREIGN KEY (`teacherprofile_id`) REFERENCES `users_teacherprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -714,7 +714,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_teacherprofile_teach_area`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_teacherprofile_teach_area` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacherprofile_id` int(11) NOT NULL,
@@ -724,7 +724,7 @@ CREATE TABLE `users_teacherprofile_teach_area` (
   KEY `users_teacherprofile_district_id_b8ea5220_fk_users_dis` (`district_id`),
   CONSTRAINT `users_teacherprofile_district_id_b8ea5220_fk_users_dis` FOREIGN KEY (`district_id`) REFERENCES `users_district` (`id`),
   CONSTRAINT `users_teacherprofile_teacherprofile_id_861ac0d9_fk_users_tea` FOREIGN KEY (`teacherprofile_id`) REFERENCES `users_teacherprofile` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -743,7 +743,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_teacherprofile_way`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_teacherprofile_way` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `teacherprofile_id` int(11) NOT NULL,
@@ -753,7 +753,7 @@ CREATE TABLE `users_teacherprofile_way` (
   KEY `users_teacherprofile_way_way_id_ef12e607_fk_users_way_id` (`way_id`),
   CONSTRAINT `users_teacherprofile_teacherprofile_id_26445455_fk_users_tea` FOREIGN KEY (`teacherprofile_id`) REFERENCES `users_teacherprofile` (`id`),
   CONSTRAINT `users_teacherprofile_way_way_id_ef12e607_fk_users_way_id` FOREIGN KEY (`way_id`) REFERENCES `users_way` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -772,7 +772,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `password` varchar(128) NOT NULL,
@@ -790,7 +790,7 @@ CREATE TABLE `users_user` (
   `type` smallint(6) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -809,7 +809,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user_groups`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_user_groups` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -819,7 +819,7 @@ CREATE TABLE `users_user_groups` (
   KEY `users_user_groups_group_id_9afc8d0e_fk_auth_group_id` (`group_id`),
   CONSTRAINT `users_user_groups_group_id_9afc8d0e_fk_auth_group_id` FOREIGN KEY (`group_id`) REFERENCES `auth_group` (`id`),
   CONSTRAINT `users_user_groups_user_id_5f6f5a90_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -837,7 +837,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_user_user_permissions`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_user_user_permissions` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `user_id` int(11) NOT NULL,
@@ -847,7 +847,7 @@ CREATE TABLE `users_user_user_permissions` (
   KEY `users_user_user_perm_permission_id_0b93982e_fk_auth_perm` (`permission_id`),
   CONSTRAINT `users_user_user_perm_permission_id_0b93982e_fk_auth_perm` FOREIGN KEY (`permission_id`) REFERENCES `auth_permission` (`id`),
   CONSTRAINT `users_user_user_permissions_user_id_20aca447_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -865,7 +865,7 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_usercomment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_usercomment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `comment` longtext NOT NULL,
@@ -881,7 +881,7 @@ CREATE TABLE `users_usercomment` (
   CONSTRAINT `users_usercomment_creator_id_fed61a68_fk_users_user_id` FOREIGN KEY (`creator_id`) REFERENCES `users_user` (`id`),
   CONSTRAINT `users_usercomment_parent_id_fb12fa4a_fk_users_usercomment_id` FOREIGN KEY (`parent_id`) REFERENCES `users_usercomment` (`id`),
   CONSTRAINT `users_usercomment_user_id_38224f6e_fk_users_user_id` FOREIGN KEY (`user_id`) REFERENCES `users_user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -900,12 +900,12 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `users_way`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
- SET character_set_client = utf8mb4 ;
+ SET character_set_client = utf8 ;
 CREATE TABLE `users_way` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(50) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 ;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
