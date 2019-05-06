@@ -29,6 +29,18 @@ export default {
           label: "目前身份"
         },
         {
+          value: "teacher_gender",
+          label: "性别"
+        },
+        {
+          value: "teacher_school",
+          label: "高校"
+        },
+        {
+          value: "teacher_specialty",
+          label: "专业"
+        },
+        {
           value: "teach_area_name",
           label: "授课区域"
         },
@@ -42,7 +54,7 @@ export default {
         },
         {
           value: "create_datetime_str",
-          label: "登记日期"
+          label: "认证日期"
         }
       ],
       total: null,
