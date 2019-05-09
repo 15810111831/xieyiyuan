@@ -9,3 +9,4 @@ class ArticleTypeViewSet(viewsets.GenericViewSet, mixins.ListModelMixin):
 
     queryset = ArticleType.objects.all()
     serializer_class = ArticleTypeSerializer
+    filter_fields = ('name', )

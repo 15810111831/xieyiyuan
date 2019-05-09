@@ -12,7 +12,7 @@
           <div slot="header" class="clearfix">
             <span>官方提示</span>
           </div>
-          <div>
+          <!-- <div>
             <div class="el-icon-warning">
               <router-link to="/toteacher">做家教</router-link>
             </div>
@@ -20,7 +20,15 @@
           <br>
           <div class="el-icon-warning">
             <router-link to="/tostudent">请家教</router-link>
-          </div>
+          </div>-->
+          <el-table :data="adminArticles" style="width: 100%">
+            <el-table-column prop="title" label="标题"></el-table-column>
+            <el-table-column fixed="right" label="操作" width="100">
+              <template slot-scope="scope">
+                <el-button @click="watchArticle(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </el-card>
       </el-col>
     </el-row>
@@ -374,8 +382,17 @@ export default {
       });
     },
     setArticle() {
-      articleList().then(res => {
-        this.articles = res.data.results;
+      articleList({}).then(res => {
+        for (var i = 0; i < res.data.results.length - 2; i++) {
+          this.articles.push(res.data.results[i]);
+        }
+      });
+    },
+    setAdminArticle() {
+      articleList({
+        type: 6
+      }).then(res => {
+        this.adminArticles = res.data.results;
       });
     },
     setUserEngage() {
@@ -438,6 +455,7 @@ export default {
     this.setEngage();
     this.setArticle();
     this.setUserEngage();
+    this.setAdminArticle();
     this.type = this.$cookies.get("type");
   }
 };
