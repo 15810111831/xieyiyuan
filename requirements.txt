@@ -4,7 +4,7 @@ chardet==3.0.4
 configparser==3.7.4
 coreapi==2.3.3
 coreschema==0.0.4
-Django==1.11
+Django==2.2.24
 django-allauth==0.24.1
 django-crequest==2018.5.11
 django-extensions==1.7.7
